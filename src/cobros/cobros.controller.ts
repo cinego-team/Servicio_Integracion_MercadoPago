@@ -5,7 +5,7 @@ import { abrirCobroDto } from 'src/dto/abrir-cobro.dto';
 @Controller('cobros')
 export class CobrosController {
     constructor(private readonly service: CobrosService) {}
-    @Post()
+    @Post('abrir-cobro')
     abrirCobro(@Body() data: abrirCobroDto) {
         return this.service.abrirCobro(data);
     }
