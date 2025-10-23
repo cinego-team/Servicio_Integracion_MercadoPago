@@ -1,6 +1,6 @@
 export class abrirCobroDto {
     idsDisponibilidad: number[];
-    dia: string;
+    fecha: string;
     hora: string;
     titulo: string;
     monto: number;
