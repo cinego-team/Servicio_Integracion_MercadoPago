@@ -11,11 +11,11 @@ const BACK_URLS = {
 
 @Injectable()
 export class CobrosService {
-    constructor(private readonly mercadopagoService: MercadopagoService) {}
+    constructor(private readonly mercadopagoService: MercadopagoService) { }
 
     async abrirCobro(data: abrirCobroDto) {
         const items = {
-            title: `Entrada/s - ${data.titulo} (${data.fecha}, ${data.hora})`,
+            title: `Entrada/s - ${data.titulo} (${data.fechaFuncion}, ${data.horaFuncion})`,
             quantity: 1,
             unit_price: data.monto,
             currency_id: 'ARS',
@@ -26,6 +26,9 @@ export class CobrosService {
                 ventaId: data.ventaId,
                 usuarioId: data.usuarioId,
                 disponibilidadButacaIds: data.idsDisponibilidad,
+                titulo: data.titulo,
+                fecha: data.fechaFuncion,
+                hora: data.horaFuncion,
             },
             notification_url: NOTIFICATION_URL,
             back_urls: BACK_URLS,
