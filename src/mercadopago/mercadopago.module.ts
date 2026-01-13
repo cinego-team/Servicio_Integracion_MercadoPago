@@ -16,5 +16,6 @@ import { MercadoPagoConfig } from 'mercadopago';
             },
         },
     ],
+    exports: [MercadopagoService],
 })
 export class MercadopagoModule {}
