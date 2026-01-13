@@ -1,7 +1,7 @@
 export class abrirCobroDto {
     idsDisponibilidad: number[];
-    dia: string;
-    hora: string;
+    fechaFuncion: string;
+    horaFuncion: string;
     titulo: string;
     monto: number;
     ventaId: number;
