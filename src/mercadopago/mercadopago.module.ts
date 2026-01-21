@@ -10,8 +10,14 @@ import { MercadoPagoConfig } from 'mercadopago';
         {
             provide: 'MERCADOPAGO_CLIENT',
             useFactory: () => {
+                const token = process.env.MP_ACCESS_TOKEN?.trim(); // .trim() quita espacios accidentales
+                
+                if (!token) {
+                    console.error('CRÍTICO: No se encontró el Access Token en el .env');
+                }
+
                 return new MercadoPagoConfig({
-                    accessToken: process.env.MP_ACCESS_TOKEN as string,
+                    accessToken: token || '', 
                 });
             },
         },

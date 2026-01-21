@@ -2,40 +2,43 @@ import { Injectable } from '@nestjs/common';
 import { MercadopagoService } from '../mercadopago/mercadopago.service';
 import { abrirCobroDto } from 'src/dto/abrir-cobro.dto';
 
-const NOTIFICATION_URL = 'aca va el endpoint de webhook';
-const BACK_URLS = {
-    success: 'pantalla de exito',
-    failure: 'pantalla de fracaso',
-    pending: 'pantalla de pendiente',
-};
+//const NOTIFICATION_URL = 'aca va el endpoint de webhook';
+//const BACK_URLS = {
+  //  success: 'http://localhost:4200/success', // Pon la URL real de tu frontend
+    //failure: 'http://localhost:4200/failure',
+   // pending: 'http://localhost:4200/pending',
+//};
 
 @Injectable()
 export class CobrosService {
     constructor(private readonly mercadopagoService: MercadopagoService) { }
 
-    async abrirCobro(data: abrirCobroDto) {
-        const items = {
-            title: `Entrada/s - ${data.titulo} (${data.fechaFuncion}, ${data.horaFuncion})`,
-            quantity: 1,
-            unit_price: data.monto,
-            currency_id: 'ARS',
-        };
-        const payload = {
-            items,
-            metadata: {
-                ventaId: data.ventaId,
-                usuarioId: data.usuarioId,
-                disponibilidadButacaIds: data.idsDisponibilidad,
-                titulo: data.titulo,
-                fecha: data.fechaFuncion,
-                hora: data.horaFuncion,
+   async abrirCobro(data: abrirCobroDto) {
+    const preferenceData = {
+        body: {
+            items: [
+                {
+                    id: '1',
+                    title: String(data.titulo),
+                    quantity: 1,
+                    unit_price: Number(data.monto),
+                    currency_id: 'ARS',
+                },
+            ],
+            back_urls: {
+                success: 'https://www.google.com',
+                failure: 'https://www.google.com',
+                pending: 'https://www.google.com',
             },
-            notification_url: NOTIFICATION_URL,
-            back_urls: BACK_URLS,
             auto_return: 'approved',
-        };
-        const response =
-            await this.mercadopagoService.crearPreferencia(payload);
-        return { init_point: response.init_point, id: response.id };
+        }
+    };
+
+    try {
+        return await this.mercadopagoService.crearPreferencia(preferenceData);
+    } catch (error) {
+        console.error('ERROR DETALLADO MP:', error.response?.data || error);
+        throw error;
+        }
     }
 }
