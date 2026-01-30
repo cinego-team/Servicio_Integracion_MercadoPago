@@ -12,11 +12,11 @@ type MercadoPagoStatus =
 
 @Injectable()
 export class MercadopagoService {
-    constructor(@Inject('MERCADOPAGO_CLIENT') private readonly mpClient) {}
+    constructor(@Inject('MERCADOPAGO_CLIENT') private readonly mpClient) { }
 
     async crearPreferencia(payload: any) {
         const preference = new Preference(this.mpClient);
-        return await preference.create(payload);
+        return await preference.create({ body: payload });
     }
 
     async cerrarCobro(body: any) {
