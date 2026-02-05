@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { MercadopagoService } from '../mercadopago/mercadopago.service';
 import { abrirCobroDto } from 'src/dto/abrir-cobro.dto';
 
-const NOTIFICATION_URL = 'https://nice-papayas-ring.loca.lt/mercadopago/webhook';
+const NOTIFICATION_URL = 'https://servicio-integracion-mercado-pago.vercel.app/mercadopago/webhook';
 
 @Injectable()
 export class CobrosService {
@@ -21,9 +21,9 @@ export class CobrosService {
                 },
             ],
             back_urls: {
-                success: 'https://localhost:4200/pantalla-exito',
-                failure: 'http://localhost:4200/pantalla-fracaso',
-                pending: 'http://localhost:4200/pantalla-pendiente',
+                success: 'https://fronted-usuario.vercel.app/pantalla-exito',
+                failure: 'https://fronted-usuario.vercel.app/pantalla-fracaso',
+                pending: 'https://fronted-usuario.vercel.app/pantalla-pendiente',
             },
             auto_return: 'approved',
             notification_url: NOTIFICATION_URL,
