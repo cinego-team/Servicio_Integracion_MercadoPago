@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { MercadopagoService } from '../mercadopago/mercadopago.service';
 import { abrirCobroDto } from 'src/dto/abrir-cobro.dto';
 
-const NOTIFICATION_URL = 'https://servicio-integracion-mercado-pago.vercel.app/mercadopago/webhook';
-
 @Injectable()
 export class CobrosService {
     constructor(private readonly mercadopagoService: MercadopagoService) { }
@@ -21,12 +19,12 @@ export class CobrosService {
                 },
             ],
             back_urls: {
-                success: 'https://fronted-usuario.vercel.app/pantalla-exito',
-                failure: 'https://fronted-usuario.vercel.app/pantalla-fracaso',
-                pending: 'https://fronted-usuario.vercel.app/pantalla-pendiente',
+                success: `${process.env.URL_FRONTEND_USUARIO}/pantalla-exito`,
+                failure: `${process.env.URL_FRONTEND_USUARIO}/pantalla-fracaso`,
+                pending: `${process.env.URL_FRONTEND_USUARIO}/pantalla-pendiente`,
             },
             auto_return: 'approved',
-            notification_url: NOTIFICATION_URL,
+            notification_url: `${process.env.URL_MS_MERCADOPAGO}/mercadopago/webhook`,
         };
         try {
             return await this.mercadopagoService.crearPreferencia(preferenceData);
