@@ -1,6 +1,6 @@
 export const config = {
     MSVentasUrls: {
-        baseUrl: `http://localhost:${process.env.PUERTO_MS_VENTAS}`,
+        baseUrl: 'http://localhost:3003',
         cerrarCobroById: (id: number) => `/cerrar-venta/${id}`,
     },
 };
