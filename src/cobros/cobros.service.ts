@@ -19,12 +19,12 @@ export class CobrosService {
                 },
             ],
             back_urls: {
-                success: `${process.env.URL_FRONTEND_USUARIO}/pantalla-exito`,
-                failure: `${process.env.URL_FRONTEND_USUARIO}/pantalla-fracaso`,
-                pending: `${process.env.URL_FRONTEND_USUARIO}/pantalla-pendiente`,
+                success: `https://gave-hosted-mistakes-drain.trycloudflare.com/pantalla-exito`, //link solo valido para pc rama
+                failure: `https://gave-hosted-mistakes-drain.trycloudflare.com/pantalla-fracaso`,
+                pending: `https://gave-hosted-mistakes-drain.trycloudflare.com/pantalla-pendiente`,
             },
             auto_return: 'approved',
-            notification_url: `${process.env.URL_MS_MERCADOPAGO}/mercadopago/webhook`,
+            notification_url: `https://susanne-tressured-fidel.ngrok-free.dev/mercadopago/webhook`, //link solo valido para pc rama
         };
         try {
             return await this.mercadopagoService.crearPreferencia(preferenceData);
