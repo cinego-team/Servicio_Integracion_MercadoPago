@@ -19,12 +19,17 @@ export class CobrosService {
                 },
             ],
             back_urls: {
-                success: `https://gave-hosted-mistakes-drain.trycloudflare.com/pantalla-exito`, //link solo valido para pc rama
-                failure: `https://gave-hosted-mistakes-drain.trycloudflare.com/pantalla-fracaso`,
-                pending: `https://gave-hosted-mistakes-drain.trycloudflare.com/pantalla-pendiente`,
+                success: `https://supervisor-major-activities-additional.trycloudflare.com/pantalla-exito`, //link solo valido para pc rama
+                failure: `https://supervisor-major-activities-additional.trycloudflare.com/pantalla-fracaso`,
+                pending: `https://supervisor-major-activities-additional.trycloudflare.com/pantalla-pendiente`,
             },
             auto_return: 'approved',
             notification_url: `https://susanne-tressured-fidel.ngrok-free.dev/mercadopago/webhook`, //link solo valido para pc rama
+            metadata: {
+                ventaId: data.ventaId,
+                usuarioId: data.usuarioId,
+                disponibilidadButacaIds: data.idsDisponibilidad,
+            }
         };
         try {
             return await this.mercadopagoService.crearPreferencia(preferenceData);

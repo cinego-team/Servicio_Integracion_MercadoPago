@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Preference } from 'mercadopago';
 import { axiosServicioVentas } from 'src/axios_service/axios.client';
 import { config } from 'src/axios_service/env';
+import axios from 'axios';
 
 type MercadoPagoStatus =
     | 'approved'
@@ -20,15 +21,37 @@ export class MercadopagoService {
     }
 
     async cerrarCobro(body: any) {
-        const status: MercadoPagoStatus = body.data.status;
-        const ventaId = body.data.metadata?.ventaId;
-        const usuarioId = body.data.metadata?.usuarioId;
-        const disponibilidadButacaIds =
-            body.data.metadata?.disponibilidadButacaIds;
+        try {
+            const { action, data, type } = body;
+            if (type !== 'payment') {
+                console.log('Tipo de evento no manejado:', type);
+                return;
+            } else {
+                const paymentId = data.id;
+                const response = await axios.get(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+                    headers: { Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}` }
+                });
+                const paymentData = response.data;
+                console.log('response', paymentData);
+                const status = paymentData.status;
 
-        await axiosServicioVentas.post(
-            config.MSVentasUrls.cerrarCobroById(ventaId),
-            { status, ventaId, usuarioId, disponibilidadButacaIds },
-        );
+                const ventaId = paymentData.metadata.venta_id;
+                const usuarioId = paymentData.metadata.usuario_id;
+                const disponibilidadButacaIds =
+                    paymentData.metadata.disponibilidad_butaca_ids;
+
+                console.log(`Pago ${paymentId}Estado: ${status} para Venta: ${ventaId}`);
+                console.log(`Estado: ${status}`);
+                console.log(`Venta: ${ventaId}`);
+                console.log(`Usuario: ${usuarioId}`);
+                console.log(`Disponibilidad Butacas: ${disponibilidadButacaIds}`);
+                await axiosServicioVentas.post(
+                    config.MSVentasUrls.cerrarCobroById(ventaId),
+                    { status, ventaId, usuarioId, disponibilidadButacaIds },
+                );
+            }
+        } catch (error) {
+            console.log("Error al procesar webhook:", error.response?.data || error);
+        }
     }
 }

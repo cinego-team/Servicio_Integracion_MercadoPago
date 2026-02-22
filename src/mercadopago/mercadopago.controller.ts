@@ -7,6 +7,9 @@ export class MercadopagoController {
     @Post('webhook')
     recibirWebhook(@Body() body) {
         console.log('Webhook recibido:', body);
+
         this.mercadopagoService.cerrarCobro(body);
+
+        return { status: 'received' }
     }
 }
