@@ -3,6 +3,7 @@ export class abrirCobroDto {
     fechaFuncion: string;
     horaFuncion: string;
     titulo: string;
+    descripcion: string;
     monto: number;
     ventaId: number;
     usuarioId: number;
