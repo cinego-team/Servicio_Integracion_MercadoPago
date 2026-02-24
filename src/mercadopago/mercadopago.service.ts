@@ -39,6 +39,9 @@ export class MercadopagoService {
                 const usuarioId = paymentData.metadata.usuario_id;
                 const disponibilidadButacaIds =
                     paymentData.metadata.disponibilidad_butaca_ids;
+                const titulo = paymentData.metadata.titulo;
+                const fechaFuncion = paymentData.metadata.fecha_funcion;
+                const horaFuncion = paymentData.metadata.hora_funcion;
 
                 console.log(`Pago ${paymentId}Estado: ${status} para Venta: ${ventaId}`);
                 console.log(`Estado: ${status}`);
@@ -47,7 +50,15 @@ export class MercadopagoService {
                 console.log(`Disponibilidad Butacas: ${disponibilidadButacaIds}`);
                 await axiosServicioVentas.post(
                     config.MSVentasUrls.cerrarCobroById(ventaId),
-                    { status, ventaId, usuarioId, disponibilidadButacaIds },
+                    {
+                        status,
+                        ventaId,
+                        usuarioId,
+                        disponibilidadButacaIds,
+                        titulo,
+                        fechaFuncion,
+                        horaFuncion
+                    },
                 );
             }
         } catch (error) {

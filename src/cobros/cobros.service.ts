@@ -19,9 +19,9 @@ export class CobrosService {
                 },
             ],
             back_urls: {
-                success: `https://supervisor-major-activities-additional.trycloudflare.com/pantalla-exito`, //link solo valido para pc rama
-                failure: `https://supervisor-major-activities-additional.trycloudflare.com/pantalla-fracaso`,
-                pending: `https://supervisor-major-activities-additional.trycloudflare.com/pantalla-pendiente`,
+                success: `https://talk-tuner-string-simulation.trycloudflare.com/pantalla-exito`, //link solo valido para pc rama
+                failure: `https://talk-tuner-string-simulation.trycloudflare.com/pantalla-fracaso`,
+                pending: `https://talk-tuner-string-simulation.trycloudflare.com/pantalla-pendiente`,
             },
             auto_return: 'approved',
             notification_url: `https://susanne-tressured-fidel.ngrok-free.dev/mercadopago/webhook`, //link solo valido para pc rama
@@ -29,6 +29,9 @@ export class CobrosService {
                 ventaId: data.ventaId,
                 usuarioId: data.usuarioId,
                 disponibilidadButacaIds: data.idsDisponibilidad,
+                titulo: data.titulo,
+                fechaFuncion: data.fechaFuncion,
+                horaFuncion: data.horaFuncion,
             }
         };
         try {
